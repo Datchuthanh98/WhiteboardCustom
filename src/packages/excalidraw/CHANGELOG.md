@@ -11,12 +11,17 @@ The change should be grouped under one of the below section and must contain PR 
 Please add the latest change on the top under the correct section.
 -->
 
-## Unreleased
+## version (2023-04-19)
 
 ### Docs
 
 - Fix docs link in readme [#6486](https://github.com/excalidraw/excalidraw/pull/6486)
 
+## Excalidraw Library
+
+**_This section lists the updates made to the excalidraw library and will not affect the integration._**
+
+---
 ## 0.15.1 (2023-04-18)
 
 ### Docs

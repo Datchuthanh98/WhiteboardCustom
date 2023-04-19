@@ -126,8 +126,8 @@ export type SocketUpdateDataSource = {
 export type SocketUpdateDataIncoming =
   | SocketUpdateDataSource[keyof SocketUpdateDataSource]
   | {
-      type: "INVALID_RESPONSE";
-    };
+    type: "INVALID_RESPONSE";
+  };
 
 export type SocketUpdateData =
   SocketUpdateDataSource[keyof SocketUpdateDataSource] & {

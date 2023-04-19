@@ -19,6 +19,7 @@ const devServerConfig = {
     client: {
       progress: true,
       logging: "info",
+      webSocketURL: 'ws://0.0.0.0:8080/ws',
       overlay: true, //Shows a full-screen overlay in the browser when there are compiler errors or warnings.
     },
     open: ["./"],

@@ -11,6 +11,9 @@ module.exports = {
   entry: {
     "excalidraw.production.min": "./entry.js",
   },
+  client: {
+    webSocketURL: 'ws://0.0.0.0:8080/ws',
+  },
   output: {
     path: path.resolve(__dirname, "dist"),
     library: "ExcalidrawLib",
