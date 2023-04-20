@@ -89,6 +89,10 @@ class Portal {
       const encoded = new TextEncoder().encode(json);
       const { encryptedBuffer, iv } = await encryptData(this.roomKey!, encoded);
 
+
+      console.log("alo",this.socket)
+      this.socket?.emit("ahihi", "uchiha on da mic")
+
       this.socket?.emit(
         volatile ? WS_EVENTS.SERVER_VOLATILE : WS_EVENTS.SERVER,
         this.roomId,

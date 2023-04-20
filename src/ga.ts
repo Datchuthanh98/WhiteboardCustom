@@ -76,7 +76,7 @@ export const toString = (nvector: NVector): string => {
     .map((value, index) =>
       Math.abs(value) > STRING_EPSILON
         ? value.toFixed(7).replace(/(\.|0+)$/, "") +
-          (index > 0 ? NVECTOR_BASE[index] : "")
+        (index > 0 ? NVECTOR_BASE[index] : "")
         : null,
     )
     .filter((representation) => representation != null)
@@ -183,40 +183,40 @@ export const mul = (a: NVector, b: NVector | number): NVector => {
   return [
     mulScalar(a, b),
     b[1] * a[0] +
-      b[0] * a[1] -
-      b[4] * a[2] +
-      b[5] * a[3] +
-      b[2] * a[4] -
-      b[3] * a[5] -
-      b[7] * a[6] -
-      b[6] * a[7],
+    b[0] * a[1] -
+    b[4] * a[2] +
+    b[5] * a[3] +
+    b[2] * a[4] -
+    b[3] * a[5] -
+    b[7] * a[6] -
+    b[6] * a[7],
     b[2] * a[0] + b[0] * a[2] - b[6] * a[3] + b[3] * a[6],
     b[3] * a[0] + b[6] * a[2] + b[0] * a[3] - b[2] * a[6],
     b[4] * a[0] +
-      b[2] * a[1] -
-      b[1] * a[2] +
-      b[7] * a[3] +
-      b[0] * a[4] +
-      b[6] * a[5] -
-      b[5] * a[6] +
-      b[3] * a[7],
+    b[2] * a[1] -
+    b[1] * a[2] +
+    b[7] * a[3] +
+    b[0] * a[4] +
+    b[6] * a[5] -
+    b[5] * a[6] +
+    b[3] * a[7],
     b[5] * a[0] -
-      b[3] * a[1] +
-      b[7] * a[2] +
-      b[1] * a[3] -
-      b[6] * a[4] +
-      b[0] * a[5] +
-      b[4] * a[6] +
-      b[2] * a[7],
+    b[3] * a[1] +
+    b[7] * a[2] +
+    b[1] * a[3] -
+    b[6] * a[4] +
+    b[0] * a[5] +
+    b[4] * a[6] +
+    b[2] * a[7],
     b[6] * a[0] + b[3] * a[2] - b[2] * a[3] + b[0] * a[6],
     b[7] * a[0] +
-      b[6] * a[1] +
-      b[5] * a[2] +
-      b[4] * a[3] +
-      b[3] * a[4] +
-      b[2] * a[5] +
-      b[1] * a[6] +
-      b[0] * a[7],
+    b[6] * a[1] +
+    b[5] * a[2] +
+    b[4] * a[3] +
+    b[3] * a[4] +
+    b[2] * a[5] +
+    b[1] * a[6] +
+    b[0] * a[7],
   ];
 };
 
@@ -233,12 +233,12 @@ export const meet = (a: NVector, b: NVector): NVector => [
   b[5] * a[0] - b[3] * a[1] + b[1] * a[3] + b[0] * a[5],
   b[6] * a[0] + b[3] * a[2] - b[2] * a[3] + b[0] * a[6],
   b[7] * a[0] +
-    b[6] * a[1] +
-    b[5] * a[2] +
-    b[4] * a[3] +
-    b[3] * a[4] +
-    b[2] * a[5] +
-    b[1] * a[6],
+  b[6] * a[1] +
+  b[5] * a[2] +
+  b[4] * a[3] +
+  b[3] * a[4] +
+  b[2] * a[5] +
+  b[1] * a[6],
 ];
 
 // The regressive product.
@@ -267,13 +267,13 @@ export const joinScalar = (a: NVector, b: NVector): number =>
 export const dot = (a: NVector, b: NVector): NVector => [
   b[0] * a[0] + b[2] * a[2] + b[3] * a[3] - b[6] * a[6],
   b[1] * a[0] +
-    b[0] * a[1] -
-    b[4] * a[2] +
-    b[5] * a[3] +
-    b[2] * a[4] -
-    b[3] * a[5] -
-    b[7] * a[6] -
-    b[6] * a[7],
+  b[0] * a[1] -
+  b[4] * a[2] +
+  b[5] * a[3] +
+  b[2] * a[4] -
+  b[3] * a[5] -
+  b[7] * a[6] -
+  b[6] * a[7],
   b[2] * a[0] + b[0] * a[2] - b[6] * a[3] + b[3] * a[6],
   b[3] * a[0] + b[6] * a[2] + b[0] * a[3] - b[2] * a[6],
   b[4] * a[0] + b[7] * a[3] + b[0] * a[4] + b[3] * a[7],
