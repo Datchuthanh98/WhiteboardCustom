@@ -85,7 +85,13 @@ import { useAtomWithInitialValue } from "../jotai";
 import { appJotaiStore } from "./app-jotai";
 import "./index.scss";
 import { ResolutionType } from "../utility-types";
-import { useSearchParams, useLocation } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  useSearchParams,
+  BrowserRouter,
+  useLocation,
+} from "react-router-dom";
 
 polyfill();
 
@@ -683,6 +689,13 @@ const ExcalidrawWrapper = () => {
 };
 
 const ExcalidrawApp = () => {
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const jwt = urlParams.get("jwt");
+    console.log("jwt ", jwt);
+    const href = window.location.href;
+    console.log("room ", href);
+  }, []);
   return (
     <TopErrorBoundary>
       <Provider unstable_createStore={() => appJotaiStore}>
