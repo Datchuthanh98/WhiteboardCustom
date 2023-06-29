@@ -94,14 +94,15 @@ export const Dialog = (props: DialogProps) => {
       <Island ref={setIslandNode}>
         <h2 id={`${id}-dialog-title`} className="Dialog__title">
           <span className="Dialog__titleContent">{props.title}</span>
-          <button
+          {/* //Custom */}
+          {/* <button
             className="Modal__close"
             onClick={onClose}
             title={t("buttons.close")}
             aria-label={t("buttons.close")}
           >
             {useDevice().isMobile ? back : CloseIcon}
-          </button>
+          </button> */}
         </h2>
         <div className="Dialog__content">{props.children}</div>
       </Island>

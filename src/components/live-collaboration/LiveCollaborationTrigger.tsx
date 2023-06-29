@@ -1,10 +1,9 @@
 import { t } from "../../i18n";
 import { usersIcon } from "../icons";
 import { Button } from "../Button";
-
 import clsx from "clsx";
 import { useExcalidrawAppState } from "../App";
-
+import { useEffect } from "react";
 import "./LiveCollaborationTrigger.scss";
 
 const LiveCollaborationTrigger = ({
@@ -16,6 +15,12 @@ const LiveCollaborationTrigger = ({
   onSelect: () => void;
 } & React.ButtonHTMLAttributes<HTMLButtonElement>) => {
   const appState = useExcalidrawAppState();
+
+  //Custom
+  useEffect(() => {
+    onSelect();
+  }, []);
+  //
 
   return (
     <Button

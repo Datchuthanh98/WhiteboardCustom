@@ -83,9 +83,9 @@ import { AppFooter } from "./components/AppFooter";
 import { atom, Provider, useAtom, useAtomValue } from "jotai";
 import { useAtomWithInitialValue } from "../jotai";
 import { appJotaiStore } from "./app-jotai";
-
 import "./index.scss";
 import { ResolutionType } from "../utility-types";
+import { useSearchParams, useLocation } from "react-router-dom";
 
 polyfill();
 
@@ -105,8 +105,9 @@ const initializeScene = async (opts: {
     | { isExternalScene: false; id?: null; key?: null }
   )
 > => {
-  const searchParams = new URLSearchParams(window.location.search);
+  const searchParams = new URLSearchParams(window.location.pathname);
   const id = searchParams.get("id");
+
   const jsonBackendMatch = window.location.hash.match(
     /^#json=([a-zA-Z0-9_-]+),([a-zA-Z0-9_-]+)$/,
   );

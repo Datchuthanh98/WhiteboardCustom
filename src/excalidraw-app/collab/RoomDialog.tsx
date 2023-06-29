@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { copyTextToSystemClipboard } from "../../clipboard";
 import { Dialog } from "../../components/Dialog";
 import {
@@ -17,7 +17,6 @@ import { trackEvent } from "../../analytics";
 import { getFrame } from "../../utils";
 import DialogActionButton from "../../components/DialogActionButton";
 import { useI18n } from "../../i18n";
-
 const getShareIcon = () => {
   const navigator = window.navigator as any;
   const isAppleBrowser = /Apple/.test(navigator.vendor);
@@ -53,7 +52,6 @@ const RoomDialog = ({
 }) => {
   const { t } = useI18n();
   const roomLinkInput = useRef<HTMLInputElement>(null);
-
   const copyRoomLink = async () => {
     try {
       await copyTextToSystemClipboard(activeRoomLink);
@@ -85,9 +83,9 @@ const RoomDialog = ({
   };
 
   const renderRoomDialog = () => {
-    return (
-      <div className="RoomDialog-modal">
-        {!activeRoomLink && (
+    if (!activeRoomLink) {
+      return (
+        <div className="RoomDialog-modal">
           <>
             <p>{t("roomDialog.desc_intro")}</p>
             <p>{`🔒 ${t("roomDialog.desc_privacy")}`}</p>
@@ -103,75 +101,80 @@ const RoomDialog = ({
               </DialogActionButton>
             </div>
           </>
-        )}
-        {activeRoomLink && (
-          <>
-            <p>{t("roomDialog.desc_inProgressIntro")}</p>
-            <p>{t("roomDialog.desc_shareLink")}</p>
-            <div className="RoomDialog-linkContainer">
-              <Stack.Row gap={2}>
-                {"share" in navigator ? (
-                  <ToolButton
-                    className="RoomDialog__button"
-                    type="button"
-                    icon={getShareIcon()}
-                    title={t("labels.share")}
-                    aria-label={t("labels.share")}
-                    onClick={shareRoomLink}
-                  />
-                ) : null}
-                <ToolButton
-                  className="RoomDialog__button"
-                  type="button"
-                  icon={clipboard}
-                  title={t("labels.copy")}
-                  aria-label={t("labels.copy")}
-                  onClick={copyRoomLink}
-                />
-              </Stack.Row>
-              <input
-                type="text"
-                value={activeRoomLink}
-                readOnly={true}
-                className="RoomDialog-link"
-                ref={roomLinkInput}
-                onPointerDown={selectInput}
+        </div>
+      );
+    }
+
+    //Else
+    //Custome
+    handleClose();
+    console.log(activeRoomLink);
+    return (
+      <div className="RoomDialog-modal">
+        <p>{t("roomDialog.desc_inProgressIntro")}</p>
+        <p>{t("roomDialog.desc_shareLink")}</p>
+        <div className="RoomDialog-linkContainer">
+          <Stack.Row gap={2}>
+            {"share" in navigator ? (
+              <ToolButton
+                className="RoomDialog__button"
+                type="button"
+                icon={getShareIcon()}
+                title={t("labels.share")}
+                aria-label={t("labels.share")}
+                onClick={shareRoomLink}
               />
-            </div>
-            <div className="RoomDialog-usernameContainer">
-              <label className="RoomDialog-usernameLabel" htmlFor="username">
-                {t("labels.yourName")}
-              </label>
-              <input
-                type="text"
-                id="username"
-                value={username.trim() || ""}
-                className="RoomDialog-username TextInput"
-                onChange={(event) => onUsernameChange(event.target.value)}
-                onKeyPress={(event) => event.key === "Enter" && handleClose()}
-              />
-            </div>
-            <p>
-              <span role="img" aria-hidden="true" className="RoomDialog-emoji">
-                {"🔒"}
-              </span>{" "}
-              {t("roomDialog.desc_privacy")}
-            </p>
-            <p>{t("roomDialog.desc_exitSession")}</p>
-            <div className="RoomDialog-sessionStartButtonContainer">
-              <DialogActionButton
-                actionType="danger"
-                label={t("roomDialog.button_stopSession")}
-                onClick={() => {
-                  trackEvent("share", "room closed");
-                  onRoomDestroy();
-                }}
-              >
-                {stop}
-              </DialogActionButton>
-            </div>
-          </>
-        )}
+            ) : null}
+            <ToolButton
+              className="RoomDialog__button"
+              type="button"
+              icon={clipboard}
+              title={t("labels.copy")}
+              aria-label={t("labels.copy")}
+              onClick={copyRoomLink}
+            />
+          </Stack.Row>
+          <input
+            type="text"
+            value={activeRoomLink}
+            readOnly={true}
+            className="RoomDialog-link"
+            ref={roomLinkInput}
+            onPointerDown={selectInput}
+          />
+        </div>
+        <div className="RoomDialog-usernameContainer">
+          <label className="RoomDialog-usernameLabel" htmlFor="username">
+            {t("labels.yourName")}
+          </label>
+          <input
+            type="text"
+            id="username"
+            value={username.trim() || ""}
+            className="RoomDialog-username TextInput"
+            onChange={(event) => onUsernameChange(event.target.value)}
+            onKeyPress={(event) => event.key === "Enter" && handleClose()}
+          />
+        </div>
+        <p>
+          <span role="img" aria-hidden="true" className="RoomDialog-emoji">
+            {"🔒"}
+          </span>{" "}
+          {t("roomDialog.desc_privacy")}
+        </p>
+        <p>{t("roomDialog.desc_exitSession")}</p>
+        <div className="RoomDialog-sessionStartButtonContainer">
+          <DialogActionButton
+            actionType="danger"
+            label={t("roomDialog.button_stopSession")}
+            onClick={() => {
+              trackEvent("share", "room closed");
+              onRoomDestroy();
+            }}
+          >
+            {stop}
+          </DialogActionButton>
+        </div>
       </div>
     );
   };
