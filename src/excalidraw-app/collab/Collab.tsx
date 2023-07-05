@@ -71,6 +71,7 @@ import { resetBrowserStateVersions } from "../data/tabSync";
 import { LocalData } from "../data/LocalData";
 import { atom, useAtom } from "jotai";
 import { appJotaiStore } from "../app-jotai";
+import apis from "../api/index";
 
 export const collabAPIAtom = atom<CollabAPI | null>(null);
 export const collabDialogShownAtom = atom(false);
@@ -379,6 +380,7 @@ class Collab extends PureComponent<Props, CollabState> {
 
   startCollaboration = async (
     existingRoomLinkData: null | { roomId: string; roomKey: string },
+    isEditCommon: boolean,
   ): Promise<ImportedDataState | null> => {
     if (this.portal.socket) {
       return null;
@@ -391,6 +393,20 @@ class Collab extends PureComponent<Props, CollabState> {
       ({ roomId, roomKey } = existingRoomLinkData);
     } else {
       ({ roomId, roomKey } = await generateCollaborationLinkData());
+
+      //Custome
+      const urlParams = new URLSearchParams(window.location.search);
+      const token = String(urlParams.get("token"));
+      const idRoomController = String(urlParams.get("idRoom"));
+      const idConnection = String(urlParams.get("idConnection"));
+      await apis.startWhiteboard(
+        idConnection,
+        idRoomController,
+        token,
+        isEditCommon,
+        `${roomId},${roomKey}`,
+      );
+      //set url
       window.history.pushState(
         {},
         APP_NAME,
@@ -829,7 +845,9 @@ class Collab extends PureComponent<Props, CollabState> {
             activeRoomLink={activeRoomLink}
             username={username}
             onUsernameChange={this.onUsernameChange}
-            onRoomCreate={() => this.startCollaboration(null)}
+            onRoomCreate={async (isEditCommon: boolean) => {
+              await this.startCollaboration(null, isEditCommon);
+            }}
             onRoomDestroy={this.stopCollaboration}
             setErrorMessage={(errorMessage) => {
               this.setState({ errorMessage });

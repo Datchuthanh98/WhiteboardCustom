@@ -1,4 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
+import type { RadioChangeEvent } from "antd";
+import { Input, Radio, Space } from "antd";
 import { copyTextToSystemClipboard } from "../../clipboard";
 import { Dialog } from "../../components/Dialog";
 import {
@@ -17,6 +19,7 @@ import { trackEvent } from "../../analytics";
 import { getFrame } from "../../utils";
 import DialogActionButton from "../../components/DialogActionButton";
 import { useI18n } from "../../i18n";
+
 const getShareIcon = () => {
   const navigator = window.navigator as any;
   const isAppleBrowser = /Apple/.test(navigator.vendor);
@@ -45,13 +48,19 @@ const RoomDialog = ({
   activeRoomLink: string;
   username: string;
   onUsernameChange: (username: string) => void;
-  onRoomCreate: () => void;
+  onRoomCreate: (isEditCommon: boolean) => void;
   onRoomDestroy: () => void;
   setErrorMessage: (message: string) => void;
   theme: AppState["theme"];
 }) => {
   const { t } = useI18n();
   const roomLinkInput = useRef<HTMLInputElement>(null);
+  const [value, setValue] = useState(1);
+  const onChange = (e: RadioChangeEvent) => {
+    setValue(e.target.value);
+    // setUsetWhiteboardCommon(e.target.value == 1 ? true : false);
+  };
+
   const copyRoomLink = async () => {
     try {
       await copyTextToSystemClipboard(activeRoomLink);
@@ -87,14 +96,24 @@ const RoomDialog = ({
       return (
         <div className="RoomDialog-modal">
           <>
-            <p>{t("roomDialog.desc_intro")}</p>
-            <p>{`🔒 ${t("roomDialog.desc_privacy")}`}</p>
+            {/* <p>{t("roomDialog.desc_intro")}</p>
+            <p>{`🔒 ${t("roomDialog.desc_privacy")}`}</p> */}
+            <Radio.Group onChange={onChange} value={value}>
+              <Space direction="vertical">
+                <Radio value={1}>
+                  Collaborating (Only you can use whiteboard)
+                </Radio>
+                <Radio value={2}>
+                  Presenting (All of people in room can use whiteboard)
+                </Radio>
+              </Space>
+            </Radio.Group>
             <div className="RoomDialog-sessionStartButtonContainer">
               <DialogActionButton
                 label={t("roomDialog.button_startSession")}
                 onClick={() => {
                   trackEvent("share", "room creation", `ui (${getFrame()})`);
-                  onRoomCreate();
+                  onRoomCreate(value == 1 ? true : false);
                 }}
               >
                 {start}
@@ -108,7 +127,6 @@ const RoomDialog = ({
     //Else
     //Custome
     handleClose();
-    console.log(activeRoomLink);
     return (
       <div className="RoomDialog-modal">
         <p>{t("roomDialog.desc_inProgressIntro")}</p>
@@ -178,6 +196,7 @@ const RoomDialog = ({
       </div>
     );
   };
+
   return (
     <Dialog
       small

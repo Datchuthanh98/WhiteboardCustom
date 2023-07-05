@@ -85,13 +85,6 @@ import { useAtomWithInitialValue } from "../jotai";
 import { appJotaiStore } from "./app-jotai";
 import "./index.scss";
 import { ResolutionType } from "../utility-types";
-import {
-  Routes,
-  Route,
-  useSearchParams,
-  BrowserRouter,
-  useLocation,
-} from "react-router-dom";
 
 polyfill();
 
@@ -191,8 +184,7 @@ const initializeScene = async (opts: {
 
   if (roomLinkData) {
     const { excalidrawAPI } = opts;
-
-    const scene = await opts.collabAPI.startCollaboration(roomLinkData);
+    const scene = await opts.collabAPI.startCollaboration(roomLinkData, false);
 
     return {
       // when collaborating, the state may have already been updated at this
@@ -689,13 +681,24 @@ const ExcalidrawWrapper = () => {
 };
 
 const ExcalidrawApp = () => {
-  useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const jwt = urlParams.get("jwt");
-    console.log("jwt ", jwt);
-    const href = window.location.href;
-    console.log("room ", href);
-  }, []);
+  // const setData = useStore((store) => store.setData);
+  // //Custome
+  // useEffect(() => {
+  //   const urlParams = new URLSearchParams(window.location.search);
+  //   const token = urlParams.get("token");
+  //   const idRoom = urlParams.get("idRoom");
+  //   const idConnection = urlParams.get("idConnection");
+  //   const idWhiteboard = window.location.href;
+
+  //   setData({
+  //     idRoom: idRoom,
+  //     idConnection: idConnection,
+  //     tokenConnection: token,
+  //     idWhiteboard: idWhiteboard,
+  //   });
+  // }, []);
+
+  //
   return (
     <TopErrorBoundary>
       <Provider unstable_createStore={() => appJotaiStore}>
