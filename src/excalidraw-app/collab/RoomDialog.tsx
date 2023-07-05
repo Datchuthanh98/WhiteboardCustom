@@ -124,9 +124,6 @@ const RoomDialog = ({
       );
     }
 
-    //Else
-    //Custome
-    handleClose();
     return (
       <div className="RoomDialog-modal">
         <p>{t("roomDialog.desc_inProgressIntro")}</p>
@@ -198,6 +195,7 @@ const RoomDialog = ({
   };
 
   return (
+    // !activeRoomLink && (
     <Dialog
       small
       onCloseRequest={handleClose}
@@ -207,6 +205,7 @@ const RoomDialog = ({
       {renderRoomDialog()}
     </Dialog>
   );
+  // );Live-collaboration session is now in progress.
 };
 
 export default RoomDialog;

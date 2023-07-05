@@ -399,13 +399,13 @@ class Collab extends PureComponent<Props, CollabState> {
       const token = String(urlParams.get("token"));
       const idRoomController = String(urlParams.get("idRoom"));
       const idConnection = String(urlParams.get("idConnection"));
-      await apis.startWhiteboard(
-        idConnection,
-        idRoomController,
-        token,
-        isEditCommon,
-        `${roomId},${roomKey}`,
-      );
+      // await apis.startWhiteboard(
+      //   idConnection,
+      //   idRoomController,
+      //   token,
+      //   isEditCommon,
+      //   `${roomId},${roomKey}`,
+      // );
       //set url
       window.history.pushState(
         {},
@@ -820,6 +820,7 @@ class Collab extends PureComponent<Props, CollabState> {
   );
 
   handleClose = () => {
+    console.log("Uchiha meme");
     appJotaiStore.set(collabDialogShownAtom, false);
   };
 
@@ -837,16 +838,21 @@ class Collab extends PureComponent<Props, CollabState> {
 
     const { modalIsShown } = this.props;
 
+    console.log("activeRoomLink", activeRoomLink);
+
     return (
       <>
-        {modalIsShown && (
+        {modalIsShown && !activeRoomLink && (
           <RoomDialog
-            handleClose={this.handleClose}
+            handleClose={() => {
+              // this.handleClose();
+            }}
             activeRoomLink={activeRoomLink}
             username={username}
             onUsernameChange={this.onUsernameChange}
             onRoomCreate={async (isEditCommon: boolean) => {
               await this.startCollaboration(null, isEditCommon);
+              this.handleClose();
             }}
             onRoomDestroy={this.stopCollaboration}
             setErrorMessage={(errorMessage) => {
