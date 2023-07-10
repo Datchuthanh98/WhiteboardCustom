@@ -37,6 +37,7 @@ let firebaseStoragePromise: Promise<any> | null | true = null;
 let isFirebaseInitialized = false;
 
 const _loadFirebase = async () => {
+
   const firebase = (
     await import(/* webpackChunkName: "firebase" */ "firebase/app")
   ).default;
@@ -55,16 +56,19 @@ const _loadFirebase = async () => {
     }
     isFirebaseInitialized = true;
   }
-
+  // console.log("_loadFirebase", firebase)
   return firebase;
 };
 
 const _getFirebase = async (): Promise<
   typeof import("firebase/app").default
 > => {
+
   if (!firebasePromise) {
     firebasePromise = _loadFirebase();
   }
+  // console.log("_getFirebase", firebasePromise)
+
   return firebasePromise;
 };
 
@@ -81,10 +85,14 @@ const loadFirestore = async () => {
     await firestorePromise;
     firestorePromise = true;
   }
+
+  // console.log("loadFirestore", firebase)
+
   return firebase;
 };
 
 export const loadFirebaseStorage = async () => {
+
   const firebase = await _getFirebase();
   if (!firebaseStoragePromise) {
     firebaseStoragePromise = import(
@@ -95,6 +103,8 @@ export const loadFirebaseStorage = async () => {
     await firebaseStoragePromise;
     firebaseStoragePromise = true;
   }
+
+  // console.log("loadFirebaseStorage ", firebase)
   return firebase;
 };
 
@@ -129,32 +139,37 @@ const decryptElements = async (
   return JSON.parse(decodedData);
 };
 
-class FirebaseSceneVersionCache {
-  private static cache = new WeakMap<SocketIOClient.Socket, number>();
-  static get = (socket: SocketIOClient.Socket) => {
-    return FirebaseSceneVersionCache.cache.get(socket);
-  };
-  static set = (
-    socket: SocketIOClient.Socket,
-    elements: readonly SyncableExcalidrawElement[],
-  ) => {
-    FirebaseSceneVersionCache.cache.set(socket, getSceneVersion(elements));
-  };
-}
+// class FirebaseSceneVersionCache {
+//   private static cache = new WeakMap<SocketIOClient.Socket, number>();
+//   static get = (socket: SocketIOClient.Socket) => {
+//     return FirebaseSceneVersionCache.cache.get(socket);
+//   };
+//   static set = (
+//     socket: SocketIOClient.Socket,
+//     elements: readonly SyncableExcalidrawElement[],
+//   ) => {
+//     FirebaseSceneVersionCache.cache.set(socket, getSceneVersion(elements));
+//   };
+// }
 
 export const isSavedToFirebase = (
   portal: Portal,
   elements: readonly ExcalidrawElement[],
 ): boolean => {
+
   if (portal.socket && portal.roomId && portal.roomKey) {
     const sceneVersion = getSceneVersion(elements);
 
-    return FirebaseSceneVersionCache.get(portal.socket) === sceneVersion;
+    // return FirebaseSceneVersionCache.get(portal.socket) === sceneVersion;
   }
   // if no room exists, consider the room saved so that we don't unnecessarily
   // prevent unload (there's nothing we could do at that point anyway)
+
+  // console.log("isSavedToFirebase")
   return true;
 };
+
+
 
 export const saveFilesToFirebase = async ({
   prefix,
@@ -164,7 +179,6 @@ export const saveFilesToFirebase = async ({
   files: { id: FileId; buffer: Uint8Array }[];
 }) => {
   const firebase = await loadFirebaseStorage();
-
   const erroredFiles = new Map<FileId, true>();
   const savedFiles = new Map<FileId, true>();
 
@@ -189,15 +203,20 @@ export const saveFilesToFirebase = async ({
     }),
   );
 
+  // console.log("saveFilesToFirebase ", savedFiles)
   return { savedFiles, erroredFiles };
 };
 
+
+//CRUD
 const createFirebaseSceneDocument = async (
   firebase: ResolutionType<typeof loadFirestore>,
   elements: readonly SyncableExcalidrawElement[],
   roomKey: string,
 ) => {
   const sceneVersion = getSceneVersion(elements);
+
+  console.log("createFirebaseSceneDocument ", sceneVersion);
   const { ciphertext, iv } = await encryptElements(roomKey, elements);
   return {
     sceneVersion,
@@ -224,6 +243,7 @@ export const saveToFirebase = async (
     return false;
   }
 
+  console.log("saveToFirebase")
   const firebase = await loadFirestore();
   const firestore = firebase.firestore();
 
@@ -269,8 +289,8 @@ export const saveToFirebase = async (
     };
   });
 
-  FirebaseSceneVersionCache.set(socket, savedData.elements);
-
+  // FirebaseSceneVersionCache.set(socket, savedData.elements);
+  console.log("saveToFirebase ", savedData.reconciledElements)
   return { reconciledElements: savedData.reconciledElements };
 };
 
@@ -287,14 +307,17 @@ export const loadFromFirebase = async (
   if (!doc.exists) {
     return null;
   }
+
   const storedScene = doc.data() as FirebaseStoredScene;
   const elements = getSyncableElements(
     await decryptElements(storedScene, roomKey),
   );
 
-  if (socket) {
-    FirebaseSceneVersionCache.set(socket, elements);
-  }
+  console.log("loadFromFirebase elements ", elements)
+
+  // if (socket) {
+  //   FirebaseSceneVersionCache.set(socket, elements);
+  // }
 
   return restoreElements(elements, null);
 };
@@ -310,9 +333,8 @@ export const loadFilesFromFirebase = async (
   await Promise.all(
     [...new Set(filesIds)].map(async (id) => {
       try {
-        const url = `https://firebasestorage.googleapis.com/v0/b/${
-          FIREBASE_CONFIG.storageBucket
-        }/o/${encodeURIComponent(prefix.replace(/^\//, ""))}%2F${id}`;
+        const url = `https://firebasestorage.googleapis.com/v0/b/${FIREBASE_CONFIG.storageBucket
+          }/o/${encodeURIComponent(prefix.replace(/^\//, ""))}%2F${id}`;
         const response = await fetch(`${url}?alt=media`);
         if (response.status < 400) {
           const arrayBuffer = await response.arrayBuffer();
@@ -343,5 +365,6 @@ export const loadFilesFromFirebase = async (
     }),
   );
 
+  console.log("loadFilesFromFirebase loadedFiles", loadedFiles)
   return { loadedFiles, erroredFiles };
 };

@@ -598,6 +598,8 @@ class Collab extends PureComponent<Props, CollabState> {
           roomLinkData.roomKey,
           this.portal.socket,
         );
+
+        console.log("Nau an cho em 2 ", elements);
         if (elements) {
           this.setLastBroadcastedOrReceivedSceneVersion(
             getSceneVersion(elements),
@@ -820,7 +822,6 @@ class Collab extends PureComponent<Props, CollabState> {
   );
 
   handleClose = () => {
-    console.log("Uchiha meme");
     appJotaiStore.set(collabDialogShownAtom, false);
   };
 
@@ -837,9 +838,6 @@ class Collab extends PureComponent<Props, CollabState> {
     const { username, errorMessage, activeRoomLink } = this.state;
 
     const { modalIsShown } = this.props;
-
-    console.log("activeRoomLink", activeRoomLink);
-
     return (
       <>
         {modalIsShown && !activeRoomLink && (
