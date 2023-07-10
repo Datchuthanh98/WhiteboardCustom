@@ -21,7 +21,8 @@ const exportToExcalidrawPlus = async (
   appState: AppState,
   files: BinaryFiles,
 ) => {
-  const firebase = await loadFirebaseStorage();
+  //firebase_custome
+  // const firebase = await loadFirebaseStorage();
 
   const id = `${nanoid(12)}`;
 
@@ -38,15 +39,16 @@ const exportToExcalidrawPlus = async (
     },
   );
 
-  await firebase
-    .storage()
-    .ref(`/migrations/scenes/${id}`)
-    .put(blob, {
-      customMetadata: {
-        data: JSON.stringify({ version: 2, name: appState.name }),
-        created: Date.now().toString(),
-      },
-    });
+  //firebase_custome
+  // await firebase
+  //   .storage()
+  //   .ref(`/migrations/scenes/${id}`)
+  //   .put(blob, {
+  //     customMetadata: {
+  //       data: JSON.stringify({ version: 2, name: appState.name }),
+  //       created: Date.now().toString(),
+  //     },
+  //   });
 
   const filesMap = new Map<FileId, BinaryFileData>();
   for (const element of elements) {
@@ -62,10 +64,11 @@ const exportToExcalidrawPlus = async (
       maxBytes: FILE_UPLOAD_MAX_BYTES,
     });
 
-    await saveFilesToFirebase({
-      prefix: `/migrations/files/scenes/${id}`,
-      files: filesToUpload,
-    });
+    //firebase_custome
+    // await saveFilesToFirebase({
+    //   prefix: `/migrations/files/scenes/${id}`,
+    //   files: filesToUpload,
+    // });
   }
 
   window.open(

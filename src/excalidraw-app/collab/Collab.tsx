@@ -71,7 +71,6 @@ import { resetBrowserStateVersions } from "../data/tabSync";
 import { LocalData } from "../data/LocalData";
 import { atom, useAtom } from "jotai";
 import { appJotaiStore } from "../app-jotai";
-import apis from "../api/index";
 
 export const collabAPIAtom = atom<CollabAPI | null>(null);
 export const collabDialogShownAtom = atom(false);
