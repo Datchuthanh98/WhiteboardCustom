@@ -90,6 +90,8 @@ export const saveFilesToFirebase = async ({
   prefix: string;
   files: { id: FileId; buffer: Uint8Array }[];
 }) => {
+
+  console.log("saveFilesToFirebase START ", prefix, files)
   const firebase = await loadFirebaseStorage();
   const erroredFiles = new Map<FileId, true>();
   const savedFiles = new Map<FileId, true>();
@@ -115,7 +117,7 @@ export const saveFilesToFirebase = async ({
     }),
   );
 
-  console.log("saveFilesToFirebase ", savedFiles)
+  console.log("saveFilesToFirebase  END", savedFiles)
   return { savedFiles, erroredFiles };
 };
 
@@ -124,6 +126,7 @@ export const loadFilesFromFirebase = async (
   decryptionKey: string,
   filesIds: readonly FileId[],
 ) => {
+  console.log("loadFilesFromFirebase START", prefix, decryptionKey, filesIds)
   const loadedFiles: BinaryFileData[] = [];
   const erroredFiles = new Map<FileId, true>();
 
@@ -162,6 +165,6 @@ export const loadFilesFromFirebase = async (
     }),
   );
 
-  console.log("loadFilesFromFirebase loadedFiles", loadedFiles)
+  console.log("loadFilesFromFirebase END", loadedFiles)
   return { loadedFiles, erroredFiles };
 };
