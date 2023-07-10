@@ -2,7 +2,6 @@ import React from "react";
 import { Card } from "../../components/Card";
 import { ToolButton } from "../../components/ToolButton";
 import { serializeAsJSON } from "../../data/json";
-import { loadFirebaseStorage, saveFilesToFirebase } from "../data/firebase";
 import { FileId, NonDeletedExcalidrawElement } from "../../element/types";
 import { AppState, BinaryFileData, BinaryFiles } from "../../types";
 import { nanoid } from "nanoid";
@@ -21,9 +20,6 @@ const exportToExcalidrawPlus = async (
   appState: AppState,
   files: BinaryFiles,
 ) => {
-  //firebase_custome
-  // const firebase = await loadFirebaseStorage();
-
   const id = `${nanoid(12)}`;
 
   const encryptionKey = (await generateEncryptionKey())!;
@@ -39,17 +35,6 @@ const exportToExcalidrawPlus = async (
     },
   );
 
-  //firebase_custome
-  // await firebase
-  //   .storage()
-  //   .ref(`/migrations/scenes/${id}`)
-  //   .put(blob, {
-  //     customMetadata: {
-  //       data: JSON.stringify({ version: 2, name: appState.name }),
-  //       created: Date.now().toString(),
-  //     },
-  //   });
-
   const filesMap = new Map<FileId, BinaryFileData>();
   for (const element of elements) {
     if (isInitializedImageElement(element) && files[element.fileId]) {
@@ -64,11 +49,6 @@ const exportToExcalidrawPlus = async (
       maxBytes: FILE_UPLOAD_MAX_BYTES,
     });
 
-    //firebase_custome
-    // await saveFilesToFirebase({
-    //   prefix: `/migrations/files/scenes/${id}`,
-    //   files: filesToUpload,
-    // });
   }
 
   window.open(

@@ -35,13 +35,7 @@ import {
   SocketUpdateDataSource,
   SyncableExcalidrawElement,
 } from "../data";
-import {
-  isSavedToFirebase,
-  loadFilesFromFirebase,
-  loadFromFirebase,
-  saveFilesToFirebase,
-  saveToFirebase,
-} from "../data/firebase";
+import { loadFilesFromFirebase, saveFilesToFirebase } from "../data/firebase";
 import {
   importUsernameFromLocalStorage,
   saveUsernameToLocalStorage,
@@ -226,53 +220,52 @@ class Collab extends PureComponent<Props, CollabState> {
 
     if (
       this.isCollaborating() &&
-      (this.fileManager.shouldPreventUnload(syncableElements) ||
-        !isSavedToFirebase(this.portal, syncableElements))
+      this.fileManager.shouldPreventUnload(syncableElements)
     ) {
       // this won't run in time if user decides to leave the site, but
       //  the purpose is to run in immediately after user decides to stay
-      this.saveCollabRoomToFirebase(syncableElements);
+      // this.saveCollabRoomToFirebase(syncableElements);
 
       preventUnload(event);
     }
   });
 
-  saveCollabRoomToFirebase = async (
-    syncableElements: readonly SyncableExcalidrawElement[],
-  ) => {
-    try {
-      const savedData = await saveToFirebase(
-        this.portal,
-        syncableElements,
-        this.excalidrawAPI.getAppState(),
-      );
+  // saveCollabRoomToFirebase = async (
+  //   syncableElements: readonly SyncableExcalidrawElement[],
+  // ) => {
+  //   try {
+  //     const savedData = await saveToFirebase(
+  //       this.portal,
+  //       syncableElements,
+  //       this.excalidrawAPI.getAppState(),
+  //     );
 
-      if (this.isCollaborating() && savedData && savedData.reconciledElements) {
-        this.handleRemoteSceneUpdate(
-          this.reconcileElements(savedData.reconciledElements),
-        );
-      }
-    } catch (error: any) {
-      this.setState({
-        // firestore doesn't return a specific error code when size exceeded
-        errorMessage: /is longer than.*?bytes/.test(error.message)
-          ? t("errors.collabSaveFailed_sizeExceeded")
-          : t("errors.collabSaveFailed"),
-      });
-      console.error(error);
-    }
-  };
+  //     if (this.isCollaborating() && savedData && savedData.reconciledElements) {
+  //       this.handleRemoteSceneUpdate(
+  //         this.reconcileElements(savedData.reconciledElements),
+  //       );
+  //     }
+  //   } catch (error: any) {
+  //     this.setState({
+  //       // firestore doesn't return a specific error code when size exceeded
+  //       errorMessage: /is longer than.*?bytes/.test(error.message)
+  //         ? t("errors.collabSaveFailed_sizeExceeded")
+  //         : t("errors.collabSaveFailed"),
+  //     });
+  //     console.error(error);
+  //   }
+  // };
 
   stopCollaboration = (keepRemoteState = true) => {
     this.queueBroadcastAllElements.cancel();
     this.queueSaveToFirebase.cancel();
     this.loadImageFiles.cancel();
 
-    this.saveCollabRoomToFirebase(
-      getSyncableElements(
-        this.excalidrawAPI.getSceneElementsIncludingDeleted(),
-      ),
-    );
+    // this.saveCollabRoomToFirebase(
+    //   getSyncableElements(
+    //     this.excalidrawAPI.getSceneElementsIncludingDeleted(),
+    //   ),
+    // );
 
     if (this.portal.socket && this.fallbackInitializationHandler) {
       this.portal.socket.off(
@@ -470,7 +463,7 @@ class Collab extends PureComponent<Props, CollabState> {
         commitToHistory: true,
       });
 
-      this.saveCollabRoomToFirebase(getSyncableElements(elements));
+      // this.saveCollabRoomToFirebase(getSyncableElements(elements));
     }
 
     // fallback in case you're not alone in the room but still don't receive
@@ -593,22 +586,20 @@ class Collab extends PureComponent<Props, CollabState> {
       this.excalidrawAPI.resetScene();
 
       try {
-        const elements = await loadFromFirebase(
-          roomLinkData.roomId,
-          roomLinkData.roomKey,
-          this.portal.socket,
-        );
-
-        if (elements) {
-          this.setLastBroadcastedOrReceivedSceneVersion(
-            getSceneVersion(elements),
-          );
-
-          return {
-            elements,
-            scrollToContent: true,
-          };
-        }
+        // const elements = await loadFromFirebase(
+        //   roomLinkData.roomId,
+        //   roomLinkData.roomKey,
+        //   this.portal.socket,
+        // );
+        // if (elements) {
+        //   this.setLastBroadcastedOrReceivedSceneVersion(
+        //     getSceneVersion(elements),
+        //   );
+        //   return {
+        //     elements,
+        //     scrollToContent: true,
+        //   };
+        // }
       } catch (error: any) {
         // log the error and move on. other peers will sync us the scene.
         console.error(error);
@@ -809,11 +800,11 @@ class Collab extends PureComponent<Props, CollabState> {
   queueSaveToFirebase = throttle(
     () => {
       if (this.portal.socketInitialized) {
-        this.saveCollabRoomToFirebase(
-          getSyncableElements(
-            this.excalidrawAPI.getSceneElementsIncludingDeleted(),
-          ),
-        );
+        // this.saveCollabRoomToFirebase(
+        //   getSyncableElements(
+        //     this.excalidrawAPI.getSceneElementsIncludingDeleted(),
+        //   ),
+        // );
       }
     },
     SYNC_FULL_SCENE_INTERVAL_MS,
