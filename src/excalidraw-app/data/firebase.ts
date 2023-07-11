@@ -90,12 +90,9 @@ export const saveFilesToFirebase = async ({
   prefix: string;
   files: { id: FileId; buffer: Uint8Array }[];
 }) => {
-
-  console.log("saveFilesToFirebase START ", files)
   const firebase = await loadFirebaseStorage();
   const erroredFiles = new Map<FileId, true>();
   const savedFiles = new Map<FileId, true>();
-
   await Promise.all(
     files.map(async ({ id, buffer }) => {
       try {
@@ -111,13 +108,23 @@ export const saveFilesToFirebase = async ({
             },
           );
         savedFiles.set(id, true);
+
+        //Custome Load SV
+        const formData = new FormData();
+        const blobFile = new Blob([buffer], {
+          type: MIME_TYPES.binary,
+        });
+        formData.append("image", blobFile, "test.jpg");
+        await fetch(`http://localhost:3101/api/v1/images/upload?idField=${id}`, {
+          method: "Post",
+          body: formData,
+        });
+        //
       } catch (error: any) {
         erroredFiles.set(id, true);
       }
     }),
   );
-
-  console.log("saveFilesToFirebase  END", savedFiles)
   return { savedFiles, erroredFiles };
 };
 
@@ -126,7 +133,6 @@ export const loadFilesFromFirebase = async (
   decryptionKey: string,
   filesIds: readonly FileId[],
 ) => {
-  console.log("loadFilesFromFirebase START", filesIds)
   const loadedFiles: BinaryFileData[] = [];
   const erroredFiles = new Map<FileId, true>();
 
@@ -137,6 +143,7 @@ export const loadFilesFromFirebase = async (
           }/o/${encodeURIComponent(prefix.replace(/^\//, ""))}%2F${id}`;
         const response = await fetch(`${url}?alt=media`);
         if (response.status < 400) {
+          console.log("response 1 ", response)
           const arrayBuffer = await response.arrayBuffer();
 
           const { data, metadata } = await decompressData<BinaryFileMetadata>(
@@ -155,6 +162,34 @@ export const loadFilesFromFirebase = async (
             created: metadata?.created || Date.now(),
             lastRetrieved: metadata?.created || Date.now(),
           });
+
+          //Custome Code....
+          const response2 = await fetch(`http://localhost:3101/api/v1/images/getfile?idField=${id}`, {
+            method: "Get",
+          });
+          console.log("response 2 ", response2)
+          // const arrayBuffer = await response2.arrayBuffer();
+
+          // const { data, metadata } = await decompressData<BinaryFileMetadata>(
+          //   new Uint8Array(arrayBuffer),
+          //   {
+          //     decryptionKey,
+          //   },
+          // );
+
+          // const dataURL = new TextDecoder().decode(data) as DataURL;
+
+          // loadedFiles.push({
+          //   mimeType: metadata.mimeType || MIME_TYPES.binary,
+          //   id,
+          //   dataURL,
+          //   created: metadata?.created || Date.now(),
+          //   lastRetrieved: metadata?.created || Date.now(),
+          // });
+
+
+
+
         } else {
           erroredFiles.set(id, true);
         }
@@ -165,6 +200,5 @@ export const loadFilesFromFirebase = async (
     }),
   );
 
-  console.log("loadFilesFromFirebase END", loadedFiles)
   return { loadedFiles, erroredFiles };
 };

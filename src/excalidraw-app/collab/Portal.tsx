@@ -134,7 +134,7 @@ class Portal {
     allElements: readonly ExcalidrawElement[],
     syncAll: boolean,
   ) => {
-    console.log("broadcastScene ", allElements);
+    // console.log("broadcastScene ", allElements);
     if (updateType === WS_SCENE_EVENT_TYPES.INIT && !syncAll) {
       throw new Error("syncAll must be true when sending SCENE.INIT");
     }

@@ -392,6 +392,8 @@ class Collab extends PureComponent<Props, CollabState> {
       const token = String(urlParams.get("token"));
       const idRoomController = String(urlParams.get("idRoom"));
       const idConnection = String(urlParams.get("idConnection"));
+
+      //APIII
       // await apis.startWhiteboard(
       //   idConnection,
       //   idRoomController,
@@ -399,6 +401,7 @@ class Collab extends PureComponent<Props, CollabState> {
       //   isEditCommon,
       //   `${roomId},${roomKey}`,
       // );
+
       //set url
       window.history.pushState(
         {},
