@@ -15,18 +15,20 @@ export const saveFilesToFirebase = async ({
   prefix: string;
   files: { id: FileId; buffer: Uint8Array }[];
 }) => {
+
   const erroredFiles = new Map<FileId, true>();
   const savedFiles = new Map<FileId, true>();
   await Promise.all(
     files.map(async ({ id, buffer }) => {
       try {
+        const idRoom = window.location.href.split("room=")[1]
         //Custome Load SV
         const formData = new FormData();
         const blobFile = new Blob([buffer], {
           type: MIME_TYPES.binary,
         });
         formData.append("image", blobFile, "test.jpg");
-        await fetch(`http://localhost:3101/api/v1/images/upload?idField=${id}`, {
+        await fetch(`http://localhost:3101/api/v1/images/upload?idField=${id}&idRoom=${idRoom}`, {
           method: "Post",
           body: formData,
         });
@@ -52,7 +54,8 @@ export const loadFilesFromFirebase = async (
   await Promise.all(
     [...new Set(filesIds)].map(async (id) => {
       try {
-        const response2 = await fetch(`http://localhost:3101/api/v1/images/getfile?idField=${id}`, {
+        const idRoom = window.location.href.split("room=")[1]
+        const response2 = await fetch(`http://localhost:3101/api/v1/images/getfile?idField=${id}&idRoom=${idRoom}`, {
           method: "Get",
         });
         if (response2.status < 400) {
