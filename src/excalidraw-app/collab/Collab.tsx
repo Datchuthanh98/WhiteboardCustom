@@ -393,7 +393,7 @@ class Collab extends PureComponent<Props, CollabState> {
       const idRoomController = String(urlParams.get("idRoom"));
       const idConnection = String(urlParams.get("idConnection"));
 
-      //APIII
+      //start Whiteboard
       // await apis.startWhiteboard(
       //   idConnection,
       //   idRoomController,

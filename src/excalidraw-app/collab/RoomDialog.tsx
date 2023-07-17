@@ -101,10 +101,10 @@ const RoomDialog = ({
             <Radio.Group onChange={onChange} value={value}>
               <Space direction="vertical">
                 <Radio value={1}>
-                  Collaborating (Only you can use whiteboard)
+                  Collaborating (All of people in room can use whiteboard)
                 </Radio>
                 <Radio value={2}>
-                  Presenting (All of people in room can use whiteboard)
+                  Presenting (Only you can use whiteboard)
                 </Radio>
               </Space>
             </Radio.Group>

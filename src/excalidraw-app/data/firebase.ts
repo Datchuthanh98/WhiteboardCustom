@@ -21,7 +21,7 @@ export const saveFilesToFirebase = async ({
   await Promise.all(
     files.map(async ({ id, buffer }) => {
       try {
-        const idRoom = window.location.href.split("room=")[1]
+        const idRoom = window.location.href.split("room=")[1].split(",")[0]
         //Custome Load SV
         const formData = new FormData();
         const blobFile = new Blob([buffer], {
@@ -54,7 +54,7 @@ export const loadFilesFromFirebase = async (
   await Promise.all(
     [...new Set(filesIds)].map(async (id) => {
       try {
-        const idRoom = window.location.href.split("room=")[1]
+        const idRoom = window.location.href.split("room=")[1].split(",")[0]
         const response2 = await fetch(`http://localhost:3101/api/v1/images/getfile?idField=${id}&idRoom=${idRoom}`, {
           method: "Get",
         });

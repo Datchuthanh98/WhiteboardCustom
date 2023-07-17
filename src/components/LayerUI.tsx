@@ -233,6 +233,13 @@ const LayerUI = ({
       elements,
     );
 
+    let permissionEdit = true;
+    const urlParams = new URLSearchParams(window.location.search);
+    const isEdit = String(urlParams.get("isEdit"));
+    if (isEdit == "false") {
+      permissionEdit = false;
+    }
+
     return (
       <FixedSideContainer side="top">
         <div className="App-menu App-menu_top">
@@ -285,27 +292,28 @@ const LayerUI = ({
                             onChange={onLockToggle}
                             title={t("toolBar.lock")}
                           />
-
                           <div className="App-toolbar__divider"></div>
-
                           <HandButton
                             checked={isHandToolActive(appState)}
                             onChange={() => onHandToolToggle()}
                             title={t("toolBar.hand")}
                             isMobile
                           />
-
-                          <ShapesSwitcher
-                            appState={appState}
-                            canvas={canvas}
-                            activeTool={appState.activeTool}
-                            setAppState={setAppState}
-                            onImageAction={({ pointerType }) => {
-                              onImageAction({
-                                insertOnCanvasDirectly: pointerType !== "mouse",
-                              });
-                            }}
-                          />
+                          {/* Permission */}
+                          {permissionEdit && (
+                            <ShapesSwitcher
+                              appState={appState}
+                              canvas={canvas}
+                              activeTool={appState.activeTool}
+                              setAppState={setAppState}
+                              onImageAction={({ pointerType }) => {
+                                onImageAction({
+                                  insertOnCanvasDirectly:
+                                    pointerType !== "mouse",
+                                });
+                              }}
+                            />
+                          )}
                         </Stack.Row>
                       </Island>
                     </Stack.Row>
