@@ -46,7 +46,7 @@ export const AppWelcomeScreen: React.FC<{
         <WelcomeScreen.Center.Menu>
           <WelcomeScreen.Center.MenuItemLoadScene />
           <WelcomeScreen.Center.MenuItemHelp />
-          <WelcomeScreen.Center.MenuItemLiveCollaborationTrigger
+          {/* <WelcomeScreen.Center.MenuItemLiveCollaborationTrigger
             onSelect={() => props.setCollabDialogShown(true)}
           />
           {!isExcalidrawPlusSignedUser && (
@@ -57,7 +57,7 @@ export const AppWelcomeScreen: React.FC<{
             >
               Try Excalidraw Plus!
             </WelcomeScreen.Center.MenuItemLink>
-          )}
+          )} */}
         </WelcomeScreen.Center.Menu>
       </WelcomeScreen.Center>
     </WelcomeScreen>

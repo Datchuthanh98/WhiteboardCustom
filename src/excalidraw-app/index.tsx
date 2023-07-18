@@ -628,7 +628,7 @@ const ExcalidrawWrapper = () => {
           setCollabDialogShown={setCollabDialogShown}
           isCollaborating={isCollaborating}
         />
-        <AppWelcomeScreen setCollabDialogShown={setCollabDialogShown} />
+        {/* <AppWelcomeScreen setCollabDialogShown={setCollabDialogShown} /> */}
         <AppFooter />
         {isCollaborating && isOffline && (
           <div className="collab-offline-warning">

@@ -84,17 +84,24 @@ class Portal {
     data: SocketUpdateData,
     volatile: boolean = false,
   ) {
-    if (this.isOpen()) {
-      const json = JSON.stringify(data);
-      const encoded = new TextEncoder().encode(json);
-      const { encryptedBuffer, iv } = await encryptData(this.roomKey!, encoded);
+    const urlParams = new URLSearchParams(window.location.search);
+    const isEdit = String(urlParams.get("isEdit"));
+    if (isEdit !== "false") {
+      if (this.isOpen()) {
+        const json = JSON.stringify(data);
+        const encoded = new TextEncoder().encode(json);
+        const { encryptedBuffer, iv } = await encryptData(
+          this.roomKey!,
+          encoded,
+        );
 
-      this.socket?.emit(
-        volatile ? WS_EVENTS.SERVER_VOLATILE : WS_EVENTS.SERVER,
-        this.roomId,
-        encryptedBuffer,
-        iv,
-      );
+        this.socket?.emit(
+          volatile ? WS_EVENTS.SERVER_VOLATILE : WS_EVENTS.SERVER,
+          this.roomId,
+          encryptedBuffer,
+          iv,
+        );
+      }
     }
   }
 

@@ -287,7 +287,7 @@
   "roomDialog": {
     "desc_intro": "Du kan invitere folk til din nuværende scene, så de kan samarbejde med dig.",
     "desc_privacy": "Bare rolig, sessionen bruger end-to-end kryptering, så uanset hvad du tegner vil det forblive privat. Ikke engang vores server vil kunne se, hvad du kommer op med.",
-    "button_startSession": "Start session",
+    "button_startSession": "Khởi tạo bảng trắng",
     "button_stopSession": "Stop session",
     "desc_inProgressIntro": "Live-samarbejde session er nu begyndt.",
     "desc_shareLink": "Del dette link med enhver, du ønsker at samarbejde med:",

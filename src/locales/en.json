@@ -67,12 +67,12 @@
     "fileTitle": "File name",
     "colorPicker": "Color picker",
     "canvasColors": "Used on canvas",
-    "canvasBackground": "Canvas background",
+    "canvasBackground": "Bảng màu nền",
     "drawingCanvas": "Drawing canvas",
     "layers": "Layers",
     "actions": "Actions",
     "language": "Language",
-    "liveCollaboration": "Setup to start whiteboard...",
+    "liveCollaboration": "Cài đặt chế độ bảng trắng ",
     "duplicateSelection": "Duplicate",
     "untitled": "Untitled",
     "name": "Name",
@@ -135,10 +135,10 @@
     "hint_emptyPrivateLibrary": "Select an item on canvas to add it here."
   },
   "buttons": {
-    "clearReset": "Reset the canvas",
+    "clearReset": "Xóa dữ liệu đã vẽ",
     "exportJSON": "Export to file",
-    "exportImage": "Export image...",
-    "export": "Save to...",
+    "exportImage": "Xuất ảnh...",
+    "export": "Lưu...",
     "exportToPng": "Export to PNG",
     "exportToSvg": "Export to SVG",
     "copyToClipboard": "Copy to clipboard",
@@ -146,7 +146,7 @@
     "scale": "Scale",
     "save": "Save to current file",
     "saveAs": "Save as",
-    "load": "Open",
+    "load": "Mở",
     "getShareableLink": "Get shareable link",
     "close": "Close",
     "selectLanguage": "Select language",
@@ -162,8 +162,8 @@
     "resetLibrary": "Reset library",
     "createNewRoom": "Create new room",
     "fullScreen": "Full screen",
-    "darkMode": "Dark mode",
-    "lightMode": "Light mode",
+    "darkMode": "Chủ đề tối",
+    "lightMode": "Chủ đề sáng",
     "zenMode": "Zen mode",
     "exitZenMode": "Exit zen mode",
     "cancel": "Cancel",
@@ -287,7 +287,7 @@
   "roomDialog": {
     "desc_intro": "You can invite people to your current scene to collaborate with you.",
     "desc_privacy": "Don't worry, the session uses end-to-end encryption, so whatever you draw will stay private. Not even our server will be able to see what you come up with.",
-    "button_startSession": "Start session",
+    "button_startSession": "Bắt đầu ",
     "button_stopSession": "Stop session",
     "desc_inProgressIntro": "Live-collaboration session is now in progress.",
     "desc_shareLink": "Share this link with anyone you want to collaborate with:",
@@ -326,10 +326,10 @@
     "or": "or",
     "preventBinding": "Prevent arrow binding",
     "tools": "Tools",
-    "shortcuts": "Keyboard shortcuts",
+    "shortcuts": "Danh sách phím tắt",
     "textFinish": "Finish editing (text editor)",
     "textNewLine": "Add new line (text editor)",
-    "title": "Help",
+    "title": "Phím tắt",
     "view": "View",
     "zoomToFit": "Zoom to fit all elements",
     "zoomToSelection": "Zoom to selection",
@@ -468,15 +468,15 @@
   },
   "welcomeScreen": {
     "app": {
-      "center_heading": "Copy right by Chu Thanh Dat ",
+      "center_heading": "Bảng trắng thuộc Mobifone Meeting",
       "center_heading_plus": "Did you want to go to the Excalidraw+ instead?",
-      "menuHint": "Export, preferences, languages, ..."
+      "menuHint": "Menu"
     },
     "defaults": {
       "menuHint": "Export, preferences, and more...",
       "center_heading": "Diagrams. Made. Simple.",
-      "toolbarHint": "Pick a tool & Start drawing!",
-      "helpHint": "Shortcuts & help"
+      "toolbarHint": "Bảng công cụ ",
+      "helpHint": "Hướng dẫn phím tắt"
     }
   }
 }

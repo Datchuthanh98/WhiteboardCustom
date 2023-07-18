@@ -330,11 +330,11 @@ const LayerUI = ({
               },
             )}
           >
-            <UserList collaborators={appState.collaborators} />
+            {/* <UserList collaborators={appState.collaborators} /> */}
             {renderTopRightUI?.(device.isMobile, appState)}
-            {!appState.viewModeEnabled && (
+            {/* {!appState.viewModeEnabled && (
               <LibraryButton appState={appState} setAppState={setAppState} />
-            )}
+            )} */}
           </div>
         </div>
       </FixedSideContainer>

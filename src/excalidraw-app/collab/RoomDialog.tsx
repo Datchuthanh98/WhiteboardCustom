@@ -100,12 +100,8 @@ const RoomDialog = ({
             <p>{`🔒 ${t("roomDialog.desc_privacy")}`}</p> */}
             <Radio.Group onChange={onChange} value={value}>
               <Space direction="vertical">
-                <Radio value={1}>
-                  Collaborating (All of people in room can use whiteboard)
-                </Radio>
-                <Radio value={2}>
-                  Presenting (Only you can use whiteboard)
-                </Radio>
+                <Radio value={1}>Cá nhân (Chỉ mình bạn có thể vẽ)</Radio>
+                <Radio value={2}>Tất cả (Mọi người có thể vẽ)</Radio>
               </Space>
             </Radio.Group>
             <div className="RoomDialog-sessionStartButtonContainer">
@@ -113,7 +109,7 @@ const RoomDialog = ({
                 label={t("roomDialog.button_startSession")}
                 onClick={() => {
                   trackEvent("share", "room creation", `ui (${getFrame()})`);
-                  onRoomCreate(value == 1 ? true : false);
+                  onRoomCreate(value == 1 ? false : true);
                 }}
               >
                 {start}
