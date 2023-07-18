@@ -298,9 +298,9 @@
     "title": "Error"
   },
   "exportDialog": {
-    "disk_title": "Save to disk",
-    "disk_details": "Export the scene data to a file from which you can import later.",
-    "disk_button": "Save to file",
+    "disk_title": "Lưu bản vẽ",
+    "disk_details": "Lưu bản vẽ về máy để có thể sử dụng dưới dạng Import vào lần sau",
+    "disk_button": "Lưu về",
     "link_title": "Shareable link",
     "link_details": "Export as a read-only link.",
     "link_button": "Export to Link",
