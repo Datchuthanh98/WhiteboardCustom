@@ -84,7 +84,7 @@ import { useAtomWithInitialValue } from "../jotai";
 import { appJotaiStore } from "./app-jotai";
 import "./index.scss";
 import { ResolutionType } from "../utility-types";
-
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 polyfill();
 
 window.EXCALIDRAW_THROTTLE_RENDER = true;
