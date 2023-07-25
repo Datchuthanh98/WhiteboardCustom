@@ -8,7 +8,7 @@ window.__EXCALIDRAW_SHA__ = process.env.REACT_APP_GIT_SHA;
 const rootElement = document.getElementById("root")!;
 const root = createRoot(rootElement);
 root.render(
-  // <BrowserRouter basename="/wb">
-  <ExcalidrawApp />,
-  // </BrowserRouter>,
+  <BrowserRouter basename="/wb">
+    <ExcalidrawApp />
+  </BrowserRouter>,
 );
