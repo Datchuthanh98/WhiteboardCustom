@@ -28,7 +28,7 @@ export const saveFilesToFirebase = async ({
           type: MIME_TYPES.binary,
         });
         formData.append("image", blobFile, "test.jpg");
-        await fetch(`${process.env.REACT_APP_WS_SERVER_URL}/api/v1/images/upload?idField=${id}&idRoom=${idRoom}`, {
+        await fetch(`${process.env.REACT_APP_API_SERVER_URL}/api/v1/images/upload?idField=${id}&idRoom=${idRoom}`, {
           method: "Post",
           body: formData,
         });
@@ -55,7 +55,7 @@ export const loadFilesFromFirebase = async (
     [...new Set(filesIds)].map(async (id) => {
       try {
         const idRoom = window.location.href.split("room=")[1].split(",")[0]
-        const response2 = await fetch(`${process.env.REACT_APP_WS_SERVER_URL}/api/v1/images/getfile?idField=${id}&idRoom=${idRoom}`, {
+        const response2 = await fetch(`${process.env.REACT_APP_API_SERVER_URL}/api/v1/images/getfile?idField=${id}&idRoom=${idRoom}`, {
           method: "Get",
         });
         if (response2.status < 400) {
