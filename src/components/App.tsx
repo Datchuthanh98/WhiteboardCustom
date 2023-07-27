@@ -1839,6 +1839,7 @@ class App extends React.Component<AppProps, AppState> {
   };
 
   onHandToolToggle = () => {
+   
     this.actionManager.executeAction(actionToggleHandTool);
   };
 

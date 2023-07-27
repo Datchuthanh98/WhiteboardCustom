@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import React from "react";
+import React, { useEffect } from "react";
 import { ActionManager } from "../actions/manager";
 import { CLASSES, LIBRARY_SIDEBAR_WIDTH } from "../constants";
 import { exportCanvas } from "../data";
@@ -125,6 +125,10 @@ const LayerUI = ({
 }: LayerUIProps) => {
   const device = useDevice();
   const tunnels = useInitializeTunnels();
+  useEffect(() => {
+    console.log("ahihi");
+    onHandToolToggle();
+  }, []);
 
   const renderJSONExportDialog = () => {
     if (!UIOptions.canvasActions.export) {
@@ -287,19 +291,19 @@ const LayerUI = ({
                             title={t("toolBar.penMode")}
                             penDetected={appState.penDetected}
                           />
-                          <LockButton
+                          {/* <LockButton
                             checked={appState.activeTool.locked}
                             onChange={onLockToggle}
                             title={t("toolBar.lock")}
-                          />
-                          <div className="App-toolbar__divider"></div>
+                          /> 
+                         <div className="App-toolbar__divider"></div> */}
                           <HandButton
                             checked={isHandToolActive(appState)}
                             onChange={() => onHandToolToggle()}
                             title={t("toolBar.hand")}
                             isMobile
                           />
-                          {/* Permission */}
+                          {/* permissionEdit */}
                           {permissionEdit && (
                             <ShapesSwitcher
                               appState={appState}
