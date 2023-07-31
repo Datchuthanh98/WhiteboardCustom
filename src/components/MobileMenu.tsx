@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { AppState, Device, ExcalidrawProps } from "../types";
 import { ActionManager } from "../actions/manager";
 import { t } from "../i18n";
@@ -61,6 +61,17 @@ export const MobileMenu = ({
   renderWelcomeScreen,
 }: MobileMenuProps) => {
   const { welcomeScreenCenterTunnel, mainMenuTunnel } = useTunnels();
+
+  const [permissionEdit, setPermissionEdit] = useState<Boolean>(true);
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const isEdit = String(urlParams.get("isEdit"));
+    if (isEdit == "false") {
+      setPermissionEdit(false);
+    }
+  }, []);
+
   const renderToolbar = () => {
     return (
       <FixedSideContainer side="top" className="App-top-bar">
@@ -72,17 +83,19 @@ export const MobileMenu = ({
                 <Island padding={1} className="App-toolbar App-toolbar--mobile">
                   {heading}
                   <Stack.Row gap={1}>
-                    <ShapesSwitcher
-                      appState={appState}
-                      canvas={canvas}
-                      activeTool={appState.activeTool}
-                      setAppState={setAppState}
-                      onImageAction={({ pointerType }) => {
-                        onImageAction({
-                          insertOnCanvasDirectly: pointerType !== "mouse",
-                        });
-                      }}
-                    />
+                    {permissionEdit && (
+                      <ShapesSwitcher
+                        appState={appState}
+                        canvas={canvas}
+                        activeTool={appState.activeTool}
+                        setAppState={setAppState}
+                        onImageAction={({ pointerType }) => {
+                          onImageAction({
+                            insertOnCanvasDirectly: pointerType !== "mouse",
+                          });
+                        }}
+                      />
+                    )}
                   </Stack.Row>
                 </Island>
                 {renderTopRightUI && renderTopRightUI(true, appState)}

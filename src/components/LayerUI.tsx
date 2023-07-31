@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { ActionManager } from "../actions/manager";
 import { CLASSES, LIBRARY_SIDEBAR_WIDTH } from "../constants";
 import { exportCanvas } from "../data";
@@ -125,6 +125,16 @@ const LayerUI = ({
 }: LayerUIProps) => {
   const device = useDevice();
   const tunnels = useInitializeTunnels();
+  const [permissionEdit, setPermissionEdit] = useState<Boolean>(true);
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const isEdit = String(urlParams.get("isEdit"));
+    if (isEdit == "false") {
+      setPermissionEdit(false);
+    }
+  }, []);
+
   useEffect(() => {
     onHandToolToggle();
   }, []);
@@ -235,14 +245,6 @@ const LayerUI = ({
       appState,
       elements,
     );
-
-    let permissionEdit = true;
-    const urlParams = new URLSearchParams(window.location.search);
-    const isEdit = String(urlParams.get("isEdit"));
-    if (isEdit == "false") {
-      permissionEdit = false;
-    }
-
     return (
       <FixedSideContainer side="top">
         <div className="App-menu App-menu_top">

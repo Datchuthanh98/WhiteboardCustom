@@ -84,7 +84,7 @@ import { useAtomWithInitialValue } from "../jotai";
 import { appJotaiStore } from "./app-jotai";
 import "./index.scss";
 import { ResolutionType } from "../utility-types";
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 polyfill();
 
 window.EXCALIDRAW_THROTTLE_RENDER = true;
@@ -647,24 +647,6 @@ const ExcalidrawWrapper = () => {
 };
 
 const ExcalidrawApp = () => {
-  // const setData = useStore((store) => store.setData);
-  // //Custome
-  // useEffect(() => {
-  //   const urlParams = new URLSearchParams(window.location.search);
-  //   const token = urlParams.get("token");
-  //   const idRoom = urlParams.get("idRoom");
-  //   const idConnection = urlParams.get("idConnection");
-  //   const idWhiteboard = window.location.href;
-
-  //   setData({
-  //     idRoom: idRoom,
-  //     idConnection: idConnection,
-  //     tokenConnection: token,
-  //     idWhiteboard: idWhiteboard,
-  //   });
-  // }, []);
-
-  //
   return (
     <TopErrorBoundary>
       <Provider unstable_createStore={() => appJotaiStore}>
