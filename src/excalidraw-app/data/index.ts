@@ -66,7 +66,6 @@ export const getCollabServer = async (): Promise<{
   url: string;
   polling: boolean;
 }> => {
-  console.log("uchiha ", process.env.REACT_APP_WS_SERVER_URL)
   if (process.env.REACT_APP_WS_SERVER_URL) {
     return {
       url: process.env.REACT_APP_WS_SERVER_URL,

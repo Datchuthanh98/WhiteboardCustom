@@ -92,6 +92,7 @@ const RoomDialog = ({
   };
 
   const renderRoomDialog = () => {
+    const radioStyle = { color: "darkgoldenrod" };
     if (!activeRoomLink) {
       return (
         <div className="RoomDialog-modal">
@@ -100,8 +101,12 @@ const RoomDialog = ({
             <p>{`🔒 ${t("roomDialog.desc_privacy")}`}</p> */}
             <Radio.Group onChange={onChange} value={value}>
               <Space direction="vertical">
-                <Radio value={1}>Cá nhân (Chỉ mình bạn có thể vẽ)</Radio>
-                <Radio value={2}>Tất cả (Mọi người có thể vẽ)</Radio>
+                <Radio value={1} style={radioStyle}>
+                  Cá nhân (Chỉ mình bạn có thể vẽ)
+                </Radio>
+                <Radio value={2} style={radioStyle}>
+                  Tất cả (Mọi người có thể vẽ)
+                </Radio>
               </Space>
             </Radio.Group>
             <div className="RoomDialog-sessionStartButtonContainer">

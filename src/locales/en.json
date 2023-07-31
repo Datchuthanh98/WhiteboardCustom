@@ -177,7 +177,7 @@
     "clearReset": "This will clear the whole canvas. Are you sure?",
     "couldNotCreateShareableLink": "Couldn't create shareable link.",
     "couldNotCreateShareableLinkTooBig": "Couldn't create shareable link: the scene is too big",
-    "couldNotLoadInvalidFile": "Couldn't load invalid file",
+    "couldNotLoadInvalidFile": "Định dạng file không hợp lệ",
     "importBackendFailed": "Importing from backend failed.",
     "cannotExportEmptyCanvas": "Cannot export empty canvas.",
     "couldNotCopyToClipboard": "Couldn't copy to clipboard.",
@@ -188,7 +188,7 @@
     "errorAddingToLibrary": "Couldn't add item to the library",
     "errorRemovingFromLibrary": "Couldn't remove item from the library",
     "confirmAddLibrary": "This will add {{numShapes}} shape(s) to your library. Are you sure?",
-    "imageDoesNotContainScene": "This image does not seem to contain any scene data. Have you enabled scene embedding during export?",
+    "imageDoesNotContainScene": "Định dạng file không hợp lệ",
     "cannotRestoreFromImage": "Scene couldn't be restored from this image file",
     "invalidSceneUrl": "Couldn't import scene from the supplied URL. It's either malformed, or doesn't contain valid Excalidraw JSON data.",
     "resetLibrary": "This will clear your library. Are you sure?",
@@ -295,7 +295,7 @@
     "shareTitle": "Join a live collaboration session on Excalidraw"
   },
   "errorDialog": {
-    "title": "Error"
+    "title": "Lỗi"
   },
   "exportDialog": {
     "disk_title": "Lưu bản vẽ",

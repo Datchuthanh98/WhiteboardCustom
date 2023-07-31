@@ -126,7 +126,6 @@ const LayerUI = ({
   const device = useDevice();
   const tunnels = useInitializeTunnels();
   useEffect(() => {
-    console.log("ahihi");
     onHandToolToggle();
   }, []);
 

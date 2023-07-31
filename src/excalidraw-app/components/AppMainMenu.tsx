@@ -7,9 +7,17 @@ export const AppMainMenu: React.FC<{
   setCollabDialogShown: (toggle: boolean) => any;
   isCollaborating: boolean;
 }> = React.memo((props) => {
+  console.log("render AppMainMenu... ");
+  let permissionEdit = true;
+  const urlParams = new URLSearchParams(window.location.search);
+  const isEdit = String(urlParams.get("isEdit"));
+  if (isEdit == "false") {
+    permissionEdit = false;
+  }
+
   return (
     <MainMenu>
-      <MainMenu.DefaultItems.LoadScene />
+      {permissionEdit && <MainMenu.DefaultItems.LoadScene />}
       <MainMenu.DefaultItems.SaveToActiveFile />
       <MainMenu.DefaultItems.Export />
       <MainMenu.DefaultItems.SaveAsImage />
@@ -17,7 +25,6 @@ export const AppMainMenu: React.FC<{
         isCollaborating={props.isCollaborating}
         onSelect={() => props.setCollabDialogShown(true)}
       /> */}
-
       <MainMenu.DefaultItems.Help />
       <MainMenu.DefaultItems.ClearCanvas />
       <MainMenu.Separator />
