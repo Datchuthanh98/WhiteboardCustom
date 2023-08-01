@@ -28,6 +28,7 @@ export const saveFilesToFirebase = async ({
           type: MIME_TYPES.binary,
         });
         formData.append("image", blobFile, "test.jpg");
+        console.log(`${process.env.REACT_APP_API_SERVER_URL}/api/v1/images/upload?idField=${id}&idRoom=${idRoom}`)
         await fetch(`${process.env.REACT_APP_API_SERVER_URL}/api/v1/images/upload?idField=${id}&idRoom=${idRoom}`, {
           method: "Post",
           body: formData,

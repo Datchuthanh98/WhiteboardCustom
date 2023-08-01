@@ -102,10 +102,10 @@ const RoomDialog = ({
             <Radio.Group onChange={onChange} value={value}>
               <Space direction="vertical">
                 <Radio value={1} style={radioStyle}>
-                  Cá nhân (Chỉ mình bạn có thể vẽ)
+                  Trình bày (Người tham gia chỉ được cấp quyền xem)
                 </Radio>
                 <Radio value={2} style={radioStyle}>
-                  Tất cả (Mọi người có thể vẽ)
+                  Cộng tác (Người tham gia được cấp quyền chỉnh sửa)
                 </Radio>
               </Space>
             </Radio.Group>

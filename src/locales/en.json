@@ -72,7 +72,7 @@
     "layers": "Layers",
     "actions": "Actions",
     "language": "Language",
-    "liveCollaboration": "Cài đặt chế độ bảng trắng ",
+    "liveCollaboration": "Bạn muốn mở bảng như thế nào ? ",
     "duplicateSelection": "Duplicate",
     "untitled": "Untitled",
     "name": "Name",
@@ -287,7 +287,7 @@
   "roomDialog": {
     "desc_intro": "You can invite people to your current scene to collaborate with you.",
     "desc_privacy": "Don't worry, the session uses end-to-end encryption, so whatever you draw will stay private. Not even our server will be able to see what you come up with.",
-    "button_startSession": "Bắt đầu ",
+    "button_startSession": "Tạo",
     "button_stopSession": "Stop session",
     "desc_inProgressIntro": "Live-collaboration session is now in progress.",
     "desc_shareLink": "Share this link with anyone you want to collaborate with:",
