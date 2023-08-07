@@ -76,6 +76,12 @@ export const Dialog = (props: DialogProps) => {
   const setIsLibraryMenuOpen = useSetAtom(isLibraryMenuOpenAtom, jotaiScope);
 
   const onClose = () => {
+    const isLive = window.location.href.includes("room");
+    //action cancel whitetboard
+    if (!isLive) {
+      console.log("cancel whitetboard");
+    }
+
     setAppState({ openMenu: null });
     setIsLibraryMenuOpen(false);
     (lastActiveElement as HTMLElement).focus();
@@ -95,14 +101,14 @@ export const Dialog = (props: DialogProps) => {
         <h2 id={`${id}-dialog-title`} className="Dialog__title">
           <span className="Dialog__titleContent">{props.title}</span>
           {/* //Custom */}
-          {/* <button
+          <button
             className="Modal__close"
             onClick={onClose}
             title={t("buttons.close")}
             aria-label={t("buttons.close")}
           >
             {useDevice().isMobile ? back : CloseIcon}
-          </button> */}
+          </button>
         </h2>
         <div className="Dialog__content">{props.children}</div>
       </Island>

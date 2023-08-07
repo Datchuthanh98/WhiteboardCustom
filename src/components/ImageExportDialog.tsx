@@ -149,16 +149,16 @@ const ImageExportModal = ({
               {t("labels.onlySelected")}
             </CheckboxItem>
           )}
-          {actionManager.renderAction("changeExportEmbedScene")}
+          {/* {actionManager.renderAction("changeExportEmbedScene")} */}
         </div>
       </div>
       <div style={{ display: "flex", alignItems: "center", marginTop: ".6em" }}>
+        <p style={{ marginRight: "1em", userSelect: "none" }}>
+          {t("buttons.scale")}
+        </p>
         <Stack.Row gap={2}>
           {actionManager.renderAction("changeExportScale")}
         </Stack.Row>
-        <p style={{ marginLeft: "1em", userSelect: "none" }}>
-          {t("buttons.scale")}
-        </p>
       </div>
       <div
         style={{

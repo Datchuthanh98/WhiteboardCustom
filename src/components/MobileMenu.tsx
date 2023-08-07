@@ -20,7 +20,7 @@ import { actionToggleStats } from "../actions";
 import { HandButton } from "./HandButton";
 import { isHandToolActive } from "../appState";
 import { useTunnels } from "./context/tunnels";
-
+import permissionEdit from "../permission/index";
 type MobileMenuProps = {
   appState: AppState;
   actionManager: ActionManager;
@@ -62,14 +62,10 @@ export const MobileMenu = ({
 }: MobileMenuProps) => {
   const { welcomeScreenCenterTunnel, mainMenuTunnel } = useTunnels();
 
-  const [permissionEdit, setPermissionEdit] = useState<Boolean>(true);
+  const [permissionEditt, setPermissionEdit] = useState<Boolean>(true);
 
   useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const isEdit = String(urlParams.get("isEdit"));
-    if (isEdit == "false") {
-      setPermissionEdit(false);
-    }
+    setPermissionEdit(permissionEdit);
   }, []);
 
   const renderToolbar = () => {
@@ -83,7 +79,7 @@ export const MobileMenu = ({
                 <Island padding={1} className="App-toolbar App-toolbar--mobile">
                   {heading}
                   <Stack.Row gap={1}>
-                    {permissionEdit && (
+                    {permissionEditt && (
                       <ShapesSwitcher
                         appState={appState}
                         canvas={canvas}

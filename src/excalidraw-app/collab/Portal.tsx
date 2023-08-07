@@ -19,7 +19,7 @@ import { newElementWith } from "../../element/mutateElement";
 import { BroadcastedExcalidrawElement } from "./reconciliation";
 import { encryptData } from "../../data/encryption";
 import { PRECEDING_ELEMENT_KEY } from "../../constants";
-
+import permissionEdit from "../../permission/index";
 class Portal {
   collab: TCollabClass;
   socket: SocketIOClient.Socket | null = null;
@@ -84,9 +84,7 @@ class Portal {
     data: SocketUpdateData,
     volatile: boolean = false,
   ) {
-    const urlParams = new URLSearchParams(window.location.search);
-    const isEdit = String(urlParams.get("isEdit"));
-    if (isEdit !== "false") {
+    if (permissionEdit() != false) {
       if (this.isOpen()) {
         const json = JSON.stringify(data);
         const encoded = new TextEncoder().encode(json);

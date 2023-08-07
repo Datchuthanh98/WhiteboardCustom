@@ -2,18 +2,12 @@ import React from "react";
 import { PlusPromoIcon } from "../../components/icons";
 import { MainMenu } from "../../packages/excalidraw/index";
 import { LanguageList } from "./LanguageList";
+import permissionEdit from "../../permission/index";
 
 export const AppMainMenu: React.FC<{
   setCollabDialogShown: (toggle: boolean) => any;
   isCollaborating: boolean;
 }> = React.memo((props) => {
-  let permissionEdit = true;
-  const urlParams = new URLSearchParams(window.location.search);
-  const isEdit = String(urlParams.get("isEdit"));
-  if (isEdit == "false") {
-    permissionEdit = false;
-  }
-
   return (
     <MainMenu>
       {/* {permissionEdit && <MainMenu.DefaultItems.LoadScene />} */}

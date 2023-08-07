@@ -5,6 +5,7 @@ import { getNonDeletedElements, isTextElement } from "../element";
 import { ExcalidrawElement } from "../element/types";
 import { isLinearElement } from "../element/typeChecks";
 import { LinearElementEditor } from "../element/linearElementEditor";
+import permissionEdit from "../permission/index"
 
 export const actionSelectAll = register({
   name: "selectAll",
@@ -34,7 +35,7 @@ export const actionSelectAll = register({
           selectedLinearElement:
             // single linear element selected
             Object.keys(selectedElementIds).length === 1 &&
-            isLinearElement(elements[0])
+              isLinearElement(elements[0])
               ? new LinearElementEditor(elements[0], app.scene)
               : null,
           editingGroupId: null,
@@ -46,5 +47,10 @@ export const actionSelectAll = register({
     };
   },
   contextItemLabel: "labels.selectAll",
-  keyTest: (event) => event[KEYS.CTRL_OR_CMD] && event.key === KEYS.A,
+  keyTest: (event) => {
+    if (permissionEdit() == true)
+      return event[KEYS.CTRL_OR_CMD] && event.key === KEYS.A
+
+    return false
+  }
 });

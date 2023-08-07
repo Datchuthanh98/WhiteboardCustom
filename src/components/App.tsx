@@ -1839,7 +1839,6 @@ class App extends React.Component<AppProps, AppState> {
   };
 
   onHandToolToggle = () => {
-   
     this.actionManager.executeAction(actionToggleHandTool);
   };
 
@@ -2251,10 +2250,11 @@ class App extends React.Component<AppProps, AppState> {
           }
           this.setActiveTool({ type: shape });
           event.stopPropagation();
-        } else if (event.key === KEYS.Q) {
-          this.toggleLock("keyboard");
-          event.stopPropagation();
         }
+        //  else if (event.key === KEYS.Q) {
+        //   this.toggleLock("keyboard");
+        //   event.stopPropagation();
+        // }
       }
       if (event.key === KEYS.SPACE && gesture.pointers.size === 0) {
         isHoldingSpace = true;

@@ -46,6 +46,7 @@ import { ActiveConfirmDialog } from "./ActiveConfirmDialog";
 import { HandButton } from "./HandButton";
 import { isHandToolActive } from "../appState";
 import { TunnelsContext, useInitializeTunnels } from "./context/tunnels";
+import permissionEdit from "../permission/index";
 
 interface LayerUIProps {
   actionManager: ActionManager;
@@ -125,14 +126,10 @@ const LayerUI = ({
 }: LayerUIProps) => {
   const device = useDevice();
   const tunnels = useInitializeTunnels();
-  const [permissionEdit, setPermissionEdit] = useState<Boolean>(true);
+  const [permissionEditt, setPermissionEdit] = useState<Boolean>(true);
 
   useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const isEdit = String(urlParams.get("isEdit"));
-    if (isEdit == "false") {
-      setPermissionEdit(false);
-    }
+    setPermissionEdit(permissionEdit());
   }, []);
 
   useEffect(() => {
@@ -305,7 +302,7 @@ const LayerUI = ({
                             isMobile
                           />
                           {/* permissionEdit */}
-                          {permissionEdit && (
+                          {permissionEditt && (
                             <ShapesSwitcher
                               appState={appState}
                               canvas={canvas}

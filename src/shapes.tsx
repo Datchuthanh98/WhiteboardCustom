@@ -11,6 +11,7 @@ import {
   TextIcon,
 } from "./components/icons";
 import { KEYS } from "./keys";
+import permissionEdit from "./permission/index";
 
 export const SHAPES = [
   {
@@ -86,6 +87,9 @@ export const SHAPES = [
 ] as const;
 
 export const findShapeByKey = (key: string) => {
+  if (permissionEdit() == false) {
+    return null;
+  }
   const shape = SHAPES.find((shape, index) => {
     return (
       (shape.numericKey != null && key === shape.numericKey.toString()) ||
@@ -96,4 +100,5 @@ export const findShapeByKey = (key: string) => {
     );
   });
   return shape?.value || null;
+  // return null;
 };
