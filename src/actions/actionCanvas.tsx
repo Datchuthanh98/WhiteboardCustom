@@ -19,6 +19,7 @@ import {
   isEraserActive,
   isHandToolActive,
 } from "../appState";
+import permissionEdit from "../permission/index";
 
 export const actionChangeViewBackgroundColor = register({
   name: "changeViewBackgroundColor",
@@ -373,5 +374,9 @@ export const actionToggleHandTool = register({
       commitToHistory: true,
     };
   },
-  keyTest: (event) => event.key === "", //KEYS.H
+  keyTest: (event) => {
+    if (permissionEdit() == true) return event.key === KEYS.H;
+
+    return false;
+  },
 });

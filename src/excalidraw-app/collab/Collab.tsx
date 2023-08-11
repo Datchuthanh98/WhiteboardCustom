@@ -394,13 +394,16 @@ class Collab extends PureComponent<Props, CollabState> {
       const idConnection = String(urlParams.get("idConnection"));
 
       //start Whiteboard
-      // await apis.startWhiteboard(
-      //   idConnection,
-      //   idRoomController,
-      //   token,
-      //   isEditCommon,
-      //   `${roomId},${roomKey}`,
-      // );
+
+      if (process.env.REACT_APP_CONNECT_MEET == "true") {
+        await apis.startWhiteboard(
+          idConnection,
+          idRoomController,
+          token,
+          isEditCommon,
+          `${roomId},${roomKey}`,
+        );
+      }
 
       //set url
       window.history.pushState(

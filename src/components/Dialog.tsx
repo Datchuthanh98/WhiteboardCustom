@@ -17,6 +17,7 @@ import { queryFocusableElements } from "../utils";
 import { useSetAtom } from "jotai";
 import { isLibraryMenuOpenAtom } from "./LibraryMenuHeaderContent";
 import { jotaiScope } from "../jotai";
+import apis from "../excalidraw-app/api/index";
 
 export interface DialogProps {
   children: React.ReactNode;
@@ -75,17 +76,26 @@ export const Dialog = (props: DialogProps) => {
   const setAppState = useExcalidrawSetAppState();
   const setIsLibraryMenuOpen = useSetAtom(isLibraryMenuOpenAtom, jotaiScope);
 
-  const onClose = () => {
-    const isLive = window.location.href.includes("room");
-    //action cancel whitetboard
-    if (!isLive) {
-      console.log("cancel whitetboard");
+  const onClose = async () => {
+    try {
+      if (process.env.REACT_APP_CONNECT_MEET == "true") {
+        const idRoomWB = window.location.href.split("#room=")[1];
+        if (idRoomWB == "") {
+          const urlParams = new URLSearchParams(window.location.search);
+          const token = String(urlParams.get("token"));
+          const idRoomController = String(urlParams.get("idRoom"));
+          const idConnection = String(urlParams.get("idConnection"));
+          await apis.stopWhiteboard(idConnection, idRoomController, token);
+        }
+      }
+      //Close POPUP
+      setAppState({ openMenu: null });
+      setIsLibraryMenuOpen(false);
+      (lastActiveElement as HTMLElement).focus();
+      props.onCloseRequest();
+    } catch (error) {
+      console.error(error);
     }
-
-    setAppState({ openMenu: null });
-    setIsLibraryMenuOpen(false);
-    (lastActiveElement as HTMLElement).focus();
-    props.onCloseRequest();
   };
 
   return (

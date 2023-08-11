@@ -515,12 +515,12 @@ class App extends React.Component<AppProps, AppState> {
         <canvas
           className="excalidraw__canvas"
           style={{
-            width: canvasDOMWidth,
-            height: canvasDOMHeight,
+            width: canvasDOMWidth + 10,
+            height: canvasDOMHeight + 10,
             cursor: CURSOR_TYPE.GRAB,
           }}
-          width={canvasWidth}
-          height={canvasHeight}
+          width={canvasWidth + 10}
+          height={canvasHeight + 10}
           ref={this.handleCanvasRef}
           onContextMenu={this.handleCanvasContextMenu}
           onPointerMove={this.handleCanvasPointerMove}

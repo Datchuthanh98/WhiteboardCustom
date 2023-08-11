@@ -30,22 +30,20 @@ async function startWhiteboard(
   };
 }
 
-async function cancelWhiteboard(
+async function stopWhiteboard(
   idConnection: string,
   idRoom: string,
   token: string,
-  isEditWhiteboardCommon: boolean,
-  whiteboardLink: string,
 ) {
   const response = await fetch(
-    `${apiEndpoint}/rooms/${idRoom}/conns/${idConnection}/startWhiteboard`,
+    `${apiEndpoint}/rooms/${idRoom}/conns/${idConnection}/stopWhiteboard`,
     {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({ whiteboardLink, isEditWhiteboardCommon }),
+      body: JSON.stringify({ isCloseLocal: true }),
     },
   );
 
@@ -62,4 +60,5 @@ async function cancelWhiteboard(
 
 export default Object.freeze({
   startWhiteboard,
+  stopWhiteboard,
 });
