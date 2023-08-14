@@ -10,17 +10,19 @@ export const AppMainMenu: React.FC<{
 }> = React.memo((props) => {
   return (
     <MainMenu>
-      {/* {permissionEdit && <MainMenu.DefaultItems.LoadScene />} */}
-      {/* <MainMenu.DefaultItems.SaveToActiveFile />
-      <MainMenu.DefaultItems.Export /> */}
+      {permissionEdit() && <MainMenu.DefaultItems.LoadScene />}
+      {permissionEdit() && <MainMenu.DefaultItems.SaveToActiveFile />}
+      {permissionEdit() && <MainMenu.DefaultItems.Export />}
+      {permissionEdit() && <MainMenu.DefaultItems.ClearCanvas />}
       <MainMenu.DefaultItems.SaveAsImage />
       {/* <MainMenu.DefaultItems.LiveCollaborationTrigger
         isCollaborating={props.isCollaborating}
         onSelect={() => props.setCollabDialogShown(true)}
       /> */}
       <MainMenu.DefaultItems.Help />
-      {/* <MainMenu.DefaultItems.ClearCanvas /> */}
+
       <MainMenu.Separator />
+
       {/* <MainMenu.ItemLink
         icon={PlusPromoIcon}
         href="https://plus.excalidraw.com/plus?utm_source=excalidraw&utm_medium=app&utm_content=hamburger"

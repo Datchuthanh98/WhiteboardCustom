@@ -79,8 +79,8 @@ const DefaultMainMenu: React.FC<{
 }> = ({ UIOptions }) => {
   return (
     <MainMenu __fallback>
-      {/* <MainMenu.DefaultItems.LoadScene />
-      <MainMenu.DefaultItems.SaveToActiveFile /> */}
+      <MainMenu.DefaultItems.LoadScene />
+      <MainMenu.DefaultItems.SaveToActiveFile />
       {/* FIXME we should to test for this inside the item itself */}
       {/* {UIOptions.canvasActions.export && <MainMenu.DefaultItems.Export />} */}
       {/* FIXME we should to test for this inside the item itself */}

@@ -16,6 +16,8 @@ export const saveFilesToFirebase = async ({
   files: { id: FileId; buffer: Uint8Array }[];
 }) => {
 
+
+  console.log("saveFilesToFirebase...")
   const erroredFiles = new Map<FileId, true>();
   const savedFiles = new Map<FileId, true>();
   await Promise.all(

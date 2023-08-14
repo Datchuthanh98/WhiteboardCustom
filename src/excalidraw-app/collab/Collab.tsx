@@ -78,6 +78,10 @@ interface CollabState {
   activeRoomLink: string;
 }
 
+function delay(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 type CollabInstance = InstanceType<typeof Collab>;
 
 export interface CollabAPI {
@@ -123,8 +127,24 @@ class Collab extends PureComponent<Props, CollabState> {
           throw new AbortError();
         }
 
-        return loadFilesFromFirebase(`files/rooms/${roomId}`, roomKey, fileIds);
+        while (1) {
+          const rs = await loadFilesFromFirebase(
+            `files/rooms/${roomId}`,
+            roomKey,
+            fileIds,
+          );
+
+          if (rs.erroredFiles.size == 0) {
+            return rs;
+          }
+
+          console.log("retrying load files again......");
+          await delay(1000);
+        }
+
+        throw new AbortError();
       },
+
       saveFiles: async ({ addedFiles }) => {
         const { roomId, roomKey } = this.portal;
         if (!roomId || !roomKey) {

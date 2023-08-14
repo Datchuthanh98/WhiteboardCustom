@@ -114,10 +114,14 @@ Help.displayName = "Help";
 export const ClearCanvas = () => {
   const { t } = useI18n();
 
+  // const actionManager = useExcalidrawActionManager();
+  // thieu 1 cai if o day nhung ko sao
+
   const setActiveConfirmDialog = useSetAtom(
     activeConfirmDialogAtom,
     jotaiScope,
   );
+
   const actionManager = useExcalidrawActionManager();
 
   if (!actionManager.isActionEnabled(actionClearCanvas)) {
@@ -126,16 +130,18 @@ export const ClearCanvas = () => {
 
   return (
     <DropdownMenuItem
+      data-testid="help-menu-item"
       icon={TrashIcon}
       onSelect={() => setActiveConfirmDialog("clearCanvas")}
-      data-testid="clear-canvas-button"
-      aria-label={t("buttons.clearReset")}
+      aria-label={t("helpDialog.title")}
     >
       {t("buttons.clearReset")}
     </DropdownMenuItem>
   );
+
+  //       onSelect={() => setActiveConfirmDialog("clearCanvas")}
 };
-ClearCanvas.displayName = "ClearCanvas";
+ClearCanvas.displayName = "clearReset";
 
 export const ToggleTheme = () => {
   const { t } = useI18n();

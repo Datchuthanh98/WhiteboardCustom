@@ -166,15 +166,15 @@
     "lightMode": "Chủ đề sáng",
     "zenMode": "Bật/tắt thanh công cụ",
     "exitZenMode": "Exit zen mode",
-    "cancel": "Cancel",
+    "cancel": "Hủy",
     "clear": "Clear",
     "remove": "Remove",
     "publishLibrary": "Publish",
     "submit": "Submit",
-    "confirm": "Confirm"
+    "confirm": "Xác nhận"
   },
   "alerts": {
-    "clearReset": "This will clear the whole canvas. Are you sure?",
+    "clearReset": "Tất cả dữ liệu trên bảng trắng sẽ bị xóa , bạn chắc chắn chứ ?",
     "couldNotCreateShareableLink": "Couldn't create shareable link.",
     "couldNotCreateShareableLinkTooBig": "Couldn't create shareable link: the scene is too big",
     "couldNotLoadInvalidFile": "Định dạng file không hợp lệ",
@@ -338,7 +338,7 @@
     "movePageLeftRight": "Di chuyển bảng trái/phải"
   },
   "clearCanvasDialog": {
-    "title": "Clear canvas"
+    "title": "Xóa dữ liệu bảng trắng"
   },
   "publishDialog": {
     "title": "Publish library",

@@ -93,6 +93,10 @@ class Portal {
           encoded,
         );
 
+        // const meme = volatile ? WS_EVENTS.SERVER_VOLATILE : WS_EVENTS.SERVER;
+        // if (meme == "server-broadcast") {
+        //   console.log(meme);
+        // }
         this.socket?.emit(
           volatile ? WS_EVENTS.SERVER_VOLATILE : WS_EVENTS.SERVER,
           this.roomId,
